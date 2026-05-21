@@ -1,0 +1,38 @@
+<mxfile host="Electron" modified="2026-05-21T10:00:00.000Z" agent="Mozilla/5.0" version="21.6.8" type="device">
+  <diagram id="fig1" name="Figura 1 - Arquitectura General">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="user" value="Usuarios Globales" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1"><mxGeometry x="50" y="200" width="40" height="80" as="geometry" /></mxCell>
+        <mxCell id="r53" value="Route 53&#10;(DNS)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1"><mxGeometry x="150" y="80" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="cf" value="CloudFront&#10;(CDN)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1"><mxGeometry x="150" y="200" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="s3" value="Amazon S3&#10;(Frontend)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1"><mxGeometry x="320" y="80" width="100" height="80" as="geometry" /></mxCell>
+        
+        <mxCell id="vpc" value="AWS Region / VPC" style="swimlane;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#FF9900;fontStyle=1" vertex="1" parent="1"><mxGeometry x="320" y="200" width="800" height="500" as="geometry" /></mxCell>
+        
+        <mxCell id="alb" value="Application Load Balancer&#10;(ALB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="vpc"><mxGeometry x="40" y="100" width="160" height="60" as="geometry" /></mxCell>
+        
+        <mxCell id="ecs_sg" value="ECS Fargate Cluster (Auto Scaling)" style="swimlane;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#d79b00;" vertex="1" parent="vpc"><mxGeometry x="250" y="80" width="220" height="240" as="geometry" /></mxCell>
+        <mxCell id="task1" value="ECS Task 1 (Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="ecs_sg"><mxGeometry x="40" y="40" width="140" height="40" as="geometry" /></mxCell>
+        <mxCell id="task2" value="ECS Task 2 (Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="ecs_sg"><mxGeometry x="40" y="100" width="140" height="40" as="geometry" /></mxCell>
+        <mxCell id="task3" value="ECS Task 3 (Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="ecs_sg"><mxGeometry x="40" y="160" width="140" height="40" as="geometry" /></mxCell>
+        
+        <mxCell id="rds" value="PostgreSQL RDS&#10;(Data)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="vpc"><mxGeometry x="550" y="80" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="redis" value="ElastiCache Redis&#10;(Cache)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="vpc"><mxGeometry x="550" y="200" width="120" height="80" as="geometry" /></mxCell>
+        
+        <mxCell id="cw" value="Amazon CloudWatch&#10;(Monitoreo)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="vpc"><mxGeometry x="40" y="380" width="300" height="60" as="geometry" /></mxCell>
+        <mxCell id="sm" value="Secrets Manager&#10;(Seguridad)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="vpc"><mxGeometry x="400" y="380" width="270" height="60" as="geometry" /></mxCell>
+        
+        <mxCell id="e1" edge="1" parent="1" source="user" target="cf"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="cf" target="alb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="cf" target="s3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" edge="1" parent="vpc" source="alb" target="task2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" edge="1" parent="vpc" source="task2" target="rds"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" edge="1" parent="vpc" source="task2" target="redis"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" edge="1" parent="vpc" source="ecs_sg" target="cw"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,23 @@
+<mxfile host="Electron" version="21.6.8" type="device">
+  <diagram id="fig4" name="Figura 4 - RDS Redis">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="api" value="Node.js API&#10;(Backend)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1"><mxGeometry x="100" y="300" width="160" height="80" as="geometry" /></mxCell>
+        
+        <mxCell id="redis" value="ElastiCache Redis&#10;(Cache Layer)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1"><mxGeometry x="500" y="100" width="160" height="100" as="geometry" /></mxCell>
+        <mxCell id="rds" value="PostgreSQL RDS&#10;(Persistent Storage)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1"><mxGeometry x="500" y="480" width="160" height="100" as="geometry" /></mxCell>
+        
+        <mxCell id="n1" value="Rankings, Sesiones, Respuestas Rápidas" style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="720" y="120" width="200" height="60" as="geometry" /></mxCell>
+        <mxCell id="n2" value="Usuarios, Partidas, Puntuaciones Históricas" style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="720" y="500" width="200" height="60" as="geometry" /></mxCell>
+        
+        <mxCell id="e1" edge="1" parent="1" source="api" target="redis" value="Check Cache (Sub-ms)"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="api" target="rds" value="Query Data (ACID)"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="redis" target="n1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="rds" target="n2"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,25 @@
+<mxfile host="Electron" version="21.6.8" type="device">
+  <diagram id="fig5" name="Figura 5 - CloudWatch Monitoring">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="ecs" value="ECS Fargate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="100" y="100" width="160" height="60" as="geometry" /></mxCell>
+        <mxCell id="alb" value="ALB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="100" y="240" width="160" height="60" as="geometry" /></mxCell>
+        <mxCell id="rds" value="RDS PostgreSQL" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="100" y="380" width="160" height="60" as="geometry" /></mxCell>
+        <mxCell id="redis" value="ElastiCache Redis" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="100" y="520" width="160" height="60" as="geometry" /></mxCell>
+        
+        <mxCell id="cw" value="Amazon CloudWatch&#10;(Observabilidad Enterprise)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="1"><mxGeometry x="600" y="240" width="200" height="200" as="geometry" /></mxCell>
+        
+        <mxCell id="dash" value="Dashboards &amp; Alarmas&#10;- CPU &gt; 70%&#10;- Memoria&#10;- Health Metrics" style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="850" y="290" width="200" height="100" as="geometry" /></mxCell>
+        
+        <mxCell id="e1" edge="1" parent="1" source="ecs" target="cw" value="CPU/Mem Metrics + Logs"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="alb" target="cw" value="Request Count + 5xx Errors"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="rds" target="cw" value="DB Connections + IOPS"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="redis" target="cw" value="Cache Hits/Misses"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="cw" target="dash"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
