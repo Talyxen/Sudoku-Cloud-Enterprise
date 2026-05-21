@@ -2,20 +2,39 @@
 
 import { useState, useEffect } from "react";
 
-const initialMockBoard = [
-  "5","3","","","7","","","","",
-  "6","","","1","9","5","","","",
-  "","9","8","","","","","6","",
-  "8","","","","6","","","","3",
-  "4","","","8","","3","","","1",
-  "7","","","","2","","","","6",
-  "","6","","","","","2","8","",
-  "","","","4","1","9","","","5",
-  "","","","","8","","","7","9"
+const solvedBoard = [
+  "5","3","4","6","7","8","9","1","2",
+  "6","7","2","1","9","5","3","4","8",
+  "1","9","8","3","4","2","5","6","7",
+  "8","5","9","7","6","1","4","2","3",
+  "4","2","6","8","5","3","7","9","1",
+  "7","1","3","9","2","4","8","5","6",
+  "9","6","1","5","3","7","2","8","4",
+  "2","8","7","4","1","9","6","3","5",
+  "3","4","5","2","8","6","1","7","9"
 ];
 
+function generateBoard(difficulty) {
+  let blanks = 20; // Easy
+  if (difficulty === 'medium') blanks = 40;
+  if (difficulty === 'hard') blanks = 55;
+  
+  const newBoard = [...solvedBoard];
+  let count = 0;
+  while(count < blanks) {
+     const idx = Math.floor(Math.random() * 81);
+     if (newBoard[idx] !== "") {
+        newBoard[idx] = "";
+        count++;
+     }
+  }
+  return newBoard;
+}
+
 export default function Home() {
+  const [difficulty, setDifficulty] = useState("easy");
   const [board, setBoard] = useState(Array(81).fill(""));
+  const [initialBoard, setInitialBoard] = useState(Array(81).fill(""));
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -47,19 +66,20 @@ export default function Home() {
   const startGame = async () => {
     setLoading(true);
     
-    // We start the game state immediately so it works even if API fails
-    setBoard([...initialMockBoard]);
+    // Generate board based on selected difficulty
+    const newBoard = generateBoard(difficulty);
+    setInitialBoard(newBoard);
+    setBoard([...newBoard]);
     setTimer(0);
     setIsRunning(true);
     
     try {
       // API call to the simulated ALB/ECS cluster
-      // Fallback API URL from env or relative if possible
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8888/api";
       await fetch(`${apiUrl}/start-game`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: "Guest", difficulty: "medium" })
+        body: JSON.stringify({ username: "Guest", difficulty })
       });
     } catch (e) {
       console.error("Cloud API error (expected if running frontend standalone):", e);
@@ -117,6 +137,26 @@ export default function Home() {
             <div className="text-4xl font-mono text-blue-400 mb-6 font-light tracking-wider">
               {formatTime(timer)}
             </div>
+            
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Difficulty</label>
+              <div className="flex gap-2">
+                {['easy', 'medium', 'hard'].map(level => (
+                  <button
+                    key={level}
+                    onClick={() => setDifficulty(level)}
+                    className={`flex-1 capitalize py-1.5 px-2 text-sm rounded-lg border transition-all ${
+                      difficulty === level 
+                        ? 'bg-blue-600/20 border-blue-500 text-blue-400' 
+                        : 'border-slate-700 text-slate-500 hover:border-slate-600'
+                    }`}
+                  >
+                    {level}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {!isRunning ? (
               <button 
                 onClick={startGame}
@@ -164,10 +204,10 @@ export default function Home() {
                 const row = Math.floor(i / 9);
                 const col = i % 9;
                 
-                // Define thicker borders for 3x3 grids to mimic traditional Sudoku
                 const isRightBorder = col === 2 || col === 5;
                 const isBottomBorder = row === 2 || row === 5;
-                const isInitial = initialMockBoard[i] !== "";
+                const isInitial = initialBoard[i] !== "";
+                const isError = !isInitial && val !== "" && val !== solvedBoard[i];
                 
                 return (
                   <input
@@ -180,6 +220,7 @@ export default function Home() {
                     className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-center text-xl sm:text-2xl outline-none transition-colors
                       border-r border-b border-slate-700
                       ${isInitial ? 'bg-slate-800 text-blue-300 font-semibold' : 'bg-slate-900 text-white font-light hover:bg-slate-800 focus:bg-slate-700 focus:ring-inset focus:ring-1 focus:ring-blue-500'}
+                      ${isError ? '!text-red-400 !bg-red-900/20' : ''}
                       ${isRightBorder ? 'border-r-[3px] border-r-slate-500' : ''}
                       ${isBottomBorder ? 'border-b-[3px] border-b-slate-500' : ''}
                       ${col === 8 ? 'border-r-0' : ''}
