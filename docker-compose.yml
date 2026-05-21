@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Simulated Application Load Balancer (ALB)
+  alb:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - public_subnet
+
+  # Next.js Frontend (Simulating S3 + CloudFront)
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost/api
+    networks:
+      - public_subnet
+      - private_subnet
+
+  # Node.js Express Backend (Simulating ECS Fargate Cluster with 3 Replicas)
+  backend:
+    build: ./backend
+    deploy:
+      replicas: 3
+    environment:
+      - PORT=3000
+      - DB_USER=postgres
+      - DB_HOST=postgres
+      - DB_NAME=sudoku_db
+      - DB_PASSWORD=EnterprisePassword2026!
+      - DB_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - FRONTEND_URL=http://localhost
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - private_subnet
+    restart: unless-stopped
+
+  # PostgreSQL (Simulating Multi-AZ RDS)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=EnterprisePassword2026!
+      - POSTGRES_DB=sudoku_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - private_subnet
+    restart: always
+
+  # Redis (Simulating ElastiCache)
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - private_subnet
+    restart: always
+
+networks:
+  public_subnet:
+    driver: bridge
+  private_subnet:
+    driver: bridge
+    internal: true # Simulating NAT Gateway, no direct internet access
+
+volumes:
+  pgdata:

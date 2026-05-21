@@ -1,0 +1,128 @@
+<mxfile host="Electron" modified="2026-05-21T14:00:00.000Z" agent="Mozilla/5.0" version="21.6.8" type="device">
+  <diagram id="enterprise-sudoku" name="AWS Architecture">
+    <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- AWS Cloud Boundary -->
+        <mxCell id="aws_cloud" value="AWS Cloud" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#f8f9fa;strokeColor=#d6d6d6;" vertex="1" parent="1">
+          <mxGeometry x="160" y="80" width="880" height="680" as="geometry" />
+        </mxCell>
+        
+        <!-- Region -->
+        <mxCell id="region" value="Region (us-east-1)" style="swimlane;whiteSpace=wrap;html=1;startSize=23;dashed=1;fillColor=none;" vertex="1" parent="aws_cloud">
+          <mxGeometry x="20" y="40" width="840" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- VPC -->
+        <mxCell id="vpc" value="VPC (10.0.0.0/16)" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e1f5fe;strokeColor=#0288d1;" vertex="1" parent="region">
+          <mxGeometry x="20" y="40" width="600" height="560" as="geometry" />
+        </mxCell>
+        
+        <!-- Public Subnet -->
+        <mxCell id="public_subnet" value="Public Subnet (10.0.1.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e8f5e9;strokeColor=#388e3c;" vertex="1" parent="vpc">
+          <mxGeometry x="20" y="40" width="560" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Application Load Balancer -->
+        <mxCell id="alb" value="Application&#10;Load Balancer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="public_subnet">
+          <mxGeometry x="40" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- NAT Gateway -->
+        <mxCell id="nat" value="NAT Gateway" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="public_subnet">
+          <mxGeometry x="400" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Private Subnet -->
+        <mxCell id="private_subnet" value="Private Subnet (10.0.2.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#fbe9e7;strokeColor=#d84315;" vertex="1" parent="vpc">
+          <mxGeometry x="20" y="220" width="560" height="320" as="geometry" />
+        </mxCell>
+        
+        <!-- ECS Cluster -->
+        <mxCell id="ecs_cluster" value="Amazon ECS Cluster (Fargate)" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="private_subnet">
+          <mxGeometry x="20" y="40" width="240" height="260" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="task1" value="Backend Task 1&#10;(Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="ecs_cluster">
+          <mxGeometry x="60" y="40" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="task2" value="Backend Task 2&#10;(Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="ecs_cluster">
+          <mxGeometry x="60" y="110" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="task3" value="Backend Task 3&#10;(Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="ecs_cluster">
+          <mxGeometry x="60" y="180" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- RDS -->
+        <mxCell id="rds" value="Amazon RDS&#10;(PostgreSQL)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="private_subnet">
+          <mxGeometry x="360" y="60" width="100" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ElastiCache -->
+        <mxCell id="redis" value="Amazon ElastiCache&#10;(Redis)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="private_subnet">
+          <mxGeometry x="360" y="180" width="100" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- External AWS Services -->
+        <mxCell id="s3" value="Amazon S3&#10;(Frontend Assets)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="region">
+          <mxGeometry x="660" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cloudwatch" value="Amazon CloudWatch&#10;(Logs &amp; Metrics)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="region">
+          <mxGeometry x="660" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="secrets" value="Secrets Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="region">
+          <mxGeometry x="660" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Edge Services -->
+        <mxCell id="cloudfront" value="Amazon CloudFront&#10;(CDN)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="route53" value="Amazon Route 53&#10;(DNS)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="220" y="10" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user" value="User / Gamer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="20" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Connections -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user" target="route53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="route53" target="cloudfront">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cloudfront" target="alb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cloudfront" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="alb" target="ecs_cluster">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecs_cluster" target="rds">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecs_cluster" target="redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecs_cluster" target="nat">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecs_cluster" target="cloudwatch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
