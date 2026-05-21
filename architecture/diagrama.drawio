@@ -6,25 +6,25 @@
         <mxCell id="1" parent="0" />
 
         <!-- Outside AWS -->
-        <mxCell id="user" value="Users / Gamers&#10;(Internet Traffic)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="user" value="Usuarios / Jugadores&#10;(Tráfico de Internet)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
           <mxGeometry x="40" y="300" width="40" height="80" as="geometry" />
         </mxCell>
 
         <!-- Edge Services -->
-        <mxCell id="route53" value="Amazon Route 53&#10;(DNS Resolution)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="route53" value="Amazon Route 53&#10;(Resolución DNS)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="160" y="140" width="140" height="90" as="geometry" />
         </mxCell>
 
-        <mxCell id="cloudfront" value="Amazon CloudFront&#10;(Global CDN &amp; WAF)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="cloudfront" value="Amazon CloudFront&#10;(CDN Global y WAF)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="160" y="300" width="140" height="90" as="geometry" />
         </mxCell>
 
         <!-- AWS Region -->
-        <mxCell id="region" value="AWS Region (us-east-1)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=1 2;fillColor=none;strokeColor=#FF9900;fontColor=#FF9900;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="region" value="Región AWS (us-east-1)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=1 2;fillColor=none;strokeColor=#FF9900;fontColor=#FF9900;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="350" y="50" width="1200" height="1000" as="geometry" />
         </mxCell>
 
-        <mxCell id="s3" value="Amazon S3&#10;(Frontend Static Assets)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="region">
+        <mxCell id="s3" value="Amazon S3&#10;(Assets Estáticos del Frontend)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="region">
           <mxGeometry x="30" y="50" width="140" height="80" as="geometry" />
         </mxCell>
 
@@ -39,120 +39,120 @@
         </mxCell>
 
         <!-- Availability Zone 1 -->
-        <mxCell id="az1" value="Availability Zone A (us-east-1a)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;fillColor=none;strokeColor=#0052cc;fontColor=#0052cc;fontStyle=1" vertex="1" parent="vpc">
+        <mxCell id="az1" value="Zona de Disponibilidad A (us-east-1a)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;fillColor=none;strokeColor=#0052cc;fontColor=#0052cc;fontStyle=1" vertex="1" parent="vpc">
           <mxGeometry x="20" y="100" width="430" height="760" as="geometry" />
         </mxCell>
 
         <!-- AZ1 Public Subnet -->
-        <mxCell id="pub_sub1" value="Public Subnet (10.0.1.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#e8f5e9;strokeColor=#388e3c;fontColor=#388e3c;fontStyle=1" vertex="1" parent="az1">
+        <mxCell id="pub_sub1" value="Subred Pública (10.0.1.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#e8f5e9;strokeColor=#388e3c;fontColor=#388e3c;fontStyle=1" vertex="1" parent="az1">
           <mxGeometry x="20" y="40" width="390" height="150" as="geometry" />
         </mxCell>
 
-        <mxCell id="alb1" value="Application Load Balancer&#10;(ALB Node A)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="pub_sub1">
+        <mxCell id="alb1" value="Balanceador de Carga&#10;(Nodo ALB A)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="pub_sub1">
           <mxGeometry x="20" y="50" width="180" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="nat1" value="NAT Gateway A&#10;(Egress Traffic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="pub_sub1">
+        <mxCell id="nat1" value="NAT Gateway A&#10;(Tráfico de Salida)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="pub_sub1">
           <mxGeometry x="230" y="50" width="130" height="60" as="geometry" />
         </mxCell>
 
         <!-- AZ1 Private Subnet -->
-        <mxCell id="priv_sub1" value="Private Subnet (10.0.3.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#fbe9e7;strokeColor=#d84315;fontColor=#d84315;fontStyle=1" vertex="1" parent="az1">
+        <mxCell id="priv_sub1" value="Subred Privada (10.0.3.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#fbe9e7;strokeColor=#d84315;fontColor=#d84315;fontStyle=1" vertex="1" parent="az1">
           <mxGeometry x="20" y="210" width="390" height="520" as="geometry" />
         </mxCell>
 
         <!-- ECS Tasks AZ1 -->
-        <mxCell id="ecs_sg1" value="ECS Security Group&#10;(Allows Port 3000 from ALB ONLY)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#d79b00;fontColor=#d79b00;" vertex="1" parent="priv_sub1">
+        <mxCell id="ecs_sg1" value="Security Group de ECS&#10;(Permite Pto 3000 SOLO desde ALB)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#d79b00;fontColor=#d79b00;" vertex="1" parent="priv_sub1">
           <mxGeometry x="20" y="40" width="350" height="150" as="geometry" />
         </mxCell>
 
-        <mxCell id="task1" value="ECS Fargate Task 1&#10;(Node.js App)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg1">
+        <mxCell id="task1" value="Tarea ECS Fargate 1&#10;(App Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg1">
           <mxGeometry x="20" y="60" width="140" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="task2" value="ECS Fargate Task 2&#10;(Node.js App)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg1">
+        <mxCell id="task2" value="Tarea ECS Fargate 2&#10;(App Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg1">
           <mxGeometry x="190" y="60" width="140" height="60" as="geometry" />
         </mxCell>
 
         <!-- RDS AZ1 -->
-        <mxCell id="rds_sg1" value="RDS Security Group&#10;(Allows 5432 from ECS ONLY)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#82b366;fontColor=#82b366;" vertex="1" parent="priv_sub1">
+        <mxCell id="rds_sg1" value="Security Group RDS&#10;(Permite 5432 SOLO desde ECS)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#82b366;fontColor=#82b366;" vertex="1" parent="priv_sub1">
           <mxGeometry x="20" y="220" width="180" height="160" as="geometry" />
         </mxCell>
 
-        <mxCell id="rds_primary" value="RDS PostgreSQL&#10;(Primary DB)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="rds_sg1">
+        <mxCell id="rds_primary" value="RDS PostgreSQL&#10;(DB Primaria)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="rds_sg1">
           <mxGeometry x="30" y="60" width="120" height="80" as="geometry" />
         </mxCell>
 
         <!-- ElastiCache AZ1 -->
-        <mxCell id="redis1" value="ElastiCache Redis&#10;(Primary Node)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="priv_sub1">
+        <mxCell id="redis1" value="ElastiCache Redis&#10;(Nodo Primario)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="priv_sub1">
           <mxGeometry x="240" y="270" width="110" height="80" as="geometry" />
         </mxCell>
 
         <!-- Availability Zone 2 -->
-        <mxCell id="az2" value="Availability Zone B (us-east-1b)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;fillColor=none;strokeColor=#0052cc;fontColor=#0052cc;fontStyle=1" vertex="1" parent="vpc">
+        <mxCell id="az2" value="Zona de Disponibilidad B (us-east-1b)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;fillColor=none;strokeColor=#0052cc;fontColor=#0052cc;fontStyle=1" vertex="1" parent="vpc">
           <mxGeometry x="490" y="100" width="430" height="760" as="geometry" />
         </mxCell>
 
         <!-- AZ2 Public Subnet -->
-        <mxCell id="pub_sub2" value="Public Subnet (10.0.2.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#e8f5e9;strokeColor=#388e3c;fontColor=#388e3c;fontStyle=1" vertex="1" parent="az2">
+        <mxCell id="pub_sub2" value="Subred Pública (10.0.2.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#e8f5e9;strokeColor=#388e3c;fontColor=#388e3c;fontStyle=1" vertex="1" parent="az2">
           <mxGeometry x="20" y="40" width="390" height="150" as="geometry" />
         </mxCell>
 
-        <mxCell id="alb2" value="Application Load Balancer&#10;(ALB Node B)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="pub_sub2">
+        <mxCell id="alb2" value="Balanceador de Carga&#10;(Nodo ALB B)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="pub_sub2">
           <mxGeometry x="20" y="50" width="180" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="nat2" value="NAT Gateway B&#10;(Egress Traffic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="pub_sub2">
+        <mxCell id="nat2" value="NAT Gateway B&#10;(Tráfico de Salida)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="pub_sub2">
           <mxGeometry x="230" y="50" width="130" height="60" as="geometry" />
         </mxCell>
 
         <!-- AZ2 Private Subnet -->
-        <mxCell id="priv_sub2" value="Private Subnet (10.0.4.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#fbe9e7;strokeColor=#d84315;fontColor=#d84315;fontStyle=1" vertex="1" parent="az2">
+        <mxCell id="priv_sub2" value="Subred Privada (10.0.4.0/24)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#fbe9e7;strokeColor=#d84315;fontColor=#d84315;fontStyle=1" vertex="1" parent="az2">
           <mxGeometry x="20" y="210" width="390" height="520" as="geometry" />
         </mxCell>
 
         <!-- ECS Tasks AZ2 -->
-        <mxCell id="ecs_sg2" value="ECS Security Group&#10;(Allows Port 3000 from ALB ONLY)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#d79b00;fontColor=#d79b00;" vertex="1" parent="priv_sub2">
+        <mxCell id="ecs_sg2" value="Security Group de ECS&#10;(Permite Pto 3000 SOLO desde ALB)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#d79b00;fontColor=#d79b00;" vertex="1" parent="priv_sub2">
           <mxGeometry x="20" y="40" width="350" height="150" as="geometry" />
         </mxCell>
 
-        <mxCell id="task3" value="ECS Fargate Task 3&#10;(Node.js App)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg2">
+        <mxCell id="task3" value="Tarea ECS Fargate 3&#10;(App Node.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="ecs_sg2">
           <mxGeometry x="20" y="60" width="140" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="autoscaling" value="Auto Scaling Group&#10;(Scale based on CPU &gt; 70%)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#FF9900;fontColor=#FF9900;fontStyle=1" vertex="1" parent="ecs_sg2">
+        <mxCell id="autoscaling" value="Auto Scaling Group&#10;(Escala si CPU &gt; 70%)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#FF9900;fontColor=#FF9900;fontStyle=1" vertex="1" parent="ecs_sg2">
           <mxGeometry x="190" y="60" width="140" height="60" as="geometry" />
         </mxCell>
 
         <!-- RDS AZ2 -->
-        <mxCell id="rds_sg2" value="RDS Security Group&#10;(Allows 5432 from ECS ONLY)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#82b366;fontColor=#82b366;" vertex="1" parent="priv_sub2">
+        <mxCell id="rds_sg2" value="Security Group RDS&#10;(Permite 5432 SOLO desde ECS)" style="swimlane;whiteSpace=wrap;html=1;startSize=40;dashed=1;fillColor=none;strokeColor=#82b366;fontColor=#82b366;" vertex="1" parent="priv_sub2">
           <mxGeometry x="20" y="220" width="180" height="160" as="geometry" />
         </mxCell>
 
-        <mxCell id="rds_standby" value="RDS PostgreSQL&#10;(Standby Multi-AZ)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2" vertex="1" parent="rds_sg2">
+        <mxCell id="rds_standby" value="RDS PostgreSQL&#10;(Réplica en Espera)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2" vertex="1" parent="rds_sg2">
           <mxGeometry x="30" y="60" width="120" height="80" as="geometry" />
         </mxCell>
 
         <!-- ElastiCache AZ2 -->
-        <mxCell id="redis2" value="ElastiCache Redis&#10;(Replica Node)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2" vertex="1" parent="priv_sub2">
+        <mxCell id="redis2" value="ElastiCache Redis&#10;(Nodo Réplica)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=2" vertex="1" parent="priv_sub2">
           <mxGeometry x="240" y="270" width="110" height="80" as="geometry" />
         </mxCell>
 
         <!-- External Tools -->
-        <mxCell id="cloudwatch" value="Amazon CloudWatch&#10;(Logs, Metrics &amp; Alarms)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="region">
+        <mxCell id="cloudwatch" value="Amazon CloudWatch&#10;(Logs, Métricas y Alarmas)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="region">
           <mxGeometry x="30" y="850" width="160" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="secrets" value="AWS Secrets Manager&#10;(Secure Credentials)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="region">
+        <mxCell id="secrets" value="AWS Secrets Manager&#10;(Credenciales Seguras)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="region">
           <mxGeometry x="1000" y="850" width="160" height="60" as="geometry" />
         </mxCell>
 
         <!-- Explicit Annotations -->
-        <mxCell id="note_security" value="SECURITY NOTE: Database layer is 100% isolated in Private Subnets.&#10;No inbound Internet access allowed. Accessible ONLY by Fargate Tasks." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="note_security" value="NOTA DE SEGURIDAD: La Base de Datos está 100% aislada en Subredes Privadas.&#10;Cero acceso desde Internet. Accesible ÚNICAMENTE por las tareas Fargate." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="600" y="1000" width="350" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="note_ha" value="HIGH AVAILABILITY: Multi-AZ Architecture. If AZ-A goes down,&#10;ALB automatically routes to AZ-B, and RDS fails over to Standby." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="note_ha" value="ALTA DISPONIBILIDAD: Arquitectura Multi-AZ. Si la Zona A se cae,&#10;el ALB enruta a la Zona B, y RDS cambia a la réplica en espera." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="1000" y="1000" width="350" height="60" as="geometry" />
         </mxCell>
 
