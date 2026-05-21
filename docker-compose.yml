@@ -4,6 +4,7 @@ services:
     image: nginx:alpine
     ports:
       - "80:80"
+      - "8888:80" # Puerto alternativo en caso de que Windows bloquee el 80
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
@@ -15,6 +16,8 @@ services:
   # Next.js Frontend (Simulating S3 + CloudFront)
   frontend:
     build: ./frontend
+    ports:
+      - "3001:3000" # Puerto de respaldo directo al frontend
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost/api
     networks:
