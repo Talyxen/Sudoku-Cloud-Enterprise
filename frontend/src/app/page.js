@@ -2,6 +2,18 @@
 
 import { useState, useEffect } from "react";
 
+const initialMockBoard = [
+  "5","3","","","7","","","","",
+  "6","","","1","9","5","","","",
+  "","9","8","","","","","6","",
+  "8","","","","6","","","","3",
+  "4","","","8","","3","","","1",
+  "7","","","","2","","","","6",
+  "","6","","","","","2","8","",
+  "","","","4","1","9","","","5",
+  "","","","","8","","","7","9"
+];
+
 export default function Home() {
   const [board, setBoard] = useState(Array(81).fill(""));
   const [timer, setTimer] = useState(0);
@@ -34,23 +46,24 @@ export default function Home() {
 
   const startGame = async () => {
     setLoading(true);
+    
+    // We start the game state immediately so it works even if API fails
+    setBoard([...initialMockBoard]);
+    setTimer(0);
+    setIsRunning(true);
+    
     try {
       // API call to the simulated ALB/ECS cluster
-      const res = await fetch("http://localhost/api/start-game", {
+      // Fallback API URL from env or relative if possible
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8888/api";
+      await fetch(`${apiUrl}/start-game`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: "Guest", difficulty: "medium" })
       });
-      
-      const mockBoard = Array(81).fill("");
-      mockBoard[0] = "5"; mockBoard[1] = "3"; mockBoard[4] = "7";
-      mockBoard[9] = "6"; mockBoard[12] = "1"; mockBoard[13] = "9"; mockBoard[14] = "5";
-      setBoard(mockBoard);
-      setTimer(0);
-      setIsRunning(true);
-      setLoading(false);
     } catch (e) {
-      console.error(e);
+      console.error("Cloud API error (expected if running frontend standalone):", e);
+    } finally {
       setLoading(false);
     }
   };
@@ -146,13 +159,15 @@ export default function Home() {
         <div className="lg:col-span-6 flex justify-center items-start">
           <div className="bg-slate-800 rounded-3xl p-8 border border-slate-700 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-            <div className="grid grid-cols-9 gap-px bg-slate-600 border-2 border-slate-600 rounded-lg overflow-hidden">
+            <div className="grid grid-cols-9 gap-0 border-4 border-slate-600 bg-slate-600 rounded overflow-hidden">
               {board.map((val, i) => {
                 const row = Math.floor(i / 9);
                 const col = i % 9;
+                
+                // Define thicker borders for 3x3 grids to mimic traditional Sudoku
                 const isRightBorder = col === 2 || col === 5;
                 const isBottomBorder = row === 2 || row === 5;
-                const isInitial = val !== "" && (i===0||i===1||i===4||i===9||i===12||i===13||i===14);
+                const isInitial = initialMockBoard[i] !== "";
                 
                 return (
                   <input
@@ -163,9 +178,12 @@ export default function Home() {
                     readOnly={isInitial}
                     onChange={(e) => handleCellChange(i, e.target.value)}
                     className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-center text-xl sm:text-2xl outline-none transition-colors
-                      ${isInitial ? 'bg-slate-700 text-blue-300 font-semibold' : 'bg-slate-800 text-white font-light hover:bg-slate-700 focus:bg-slate-700 focus:ring-inset focus:ring-1 focus:ring-blue-500'}
-                      ${isRightBorder ? 'border-r-2 border-r-slate-600' : ''}
-                      ${isBottomBorder ? 'border-b-2 border-b-slate-600' : ''}
+                      border-r border-b border-slate-700
+                      ${isInitial ? 'bg-slate-800 text-blue-300 font-semibold' : 'bg-slate-900 text-white font-light hover:bg-slate-800 focus:bg-slate-700 focus:ring-inset focus:ring-1 focus:ring-blue-500'}
+                      ${isRightBorder ? 'border-r-[3px] border-r-slate-500' : ''}
+                      ${isBottomBorder ? 'border-b-[3px] border-b-slate-500' : ''}
+                      ${col === 8 ? 'border-r-0' : ''}
+                      ${row === 8 ? 'border-b-0' : ''}
                     `}
                   />
                 );
